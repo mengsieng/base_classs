@@ -26,7 +26,7 @@ abstract class BaseStateless<T extends BaseChangeNotifier>
 
   /// This [buildWidget] need to override when extends
   /// This used for write UI design
-  Widget buildWidget(BuildContext context, T povider);
+  Widget buildWidget(BuildContext context, T provider);
 
   /// [registerChangeNotifier] for aassign changeNoifier instance
   /// for get acess to changeNoifier that you want to register for using
