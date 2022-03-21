@@ -1,39 +1,50 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+## base_class library
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+Our job is to make you easier to use `hooks_riverpod` with `ConsumerWidget` with less code.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+In the `dependencies:` section of your `pubspec.yaml`, add the following line:
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  base_class:
+    git: git@github.com:mengsieng/base_classs.git
 ```
 
-## Additional information
+## Example
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+Frist you have to create changenotifier class that extends with `ChangeNotifier` or `BaseChangeNotifier` that we have provide some functionality.
+
+```dart
+class CounterProvider extends BaseChangeNotifier{
+    int count = 0;
+    fun increaseCount(){
+        count += 1;
+    }
+}
+```
+
+Now let extends `BaseStateless` for create UI design that register with `ChangeNotifier` class to separate UI and state easy.
+
+```dart
+class CounterScreen extends BaseStateless<CounterProvider> {
+  @override
+  CountProvider registerChangeNotifier() => CounterProvider();
+
+  @override
+  Widget buildWidget(BuildContext context, CountProvider povider) {
+    return Scaffold(
+        appBar: AppBar(
+            title: Text('Counter Example'),
+            body: Center(
+                child: Text("Count = ${provider.count}"),
+            ),
+            floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  povider.increas();
+                },
+            ),
+        ),
+    );
+  }
+}
+```
